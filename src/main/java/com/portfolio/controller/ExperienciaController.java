@@ -4,6 +4,7 @@ import com.portfolio.model.ExperienciaLaboral;
 import com.portfolio.service.IExperienciaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,16 +28,19 @@ public class ExperienciaController {
         return expService.getExperiencias();
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/experiencia")
     public void createEmp(@RequestBody ExperienciaLaboral exp) {
         expService.createExp(exp);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/experiencia/{id}")
     public void editarEmpresa(@PathVariable Long id, @RequestBody ExperienciaLaboral exp) {
         expService.editExperiencia(id, exp);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/experiencia/{id}")
     public void eliminarEmpresa(@PathVariable Long id) {
         expService.deleteExp(id);

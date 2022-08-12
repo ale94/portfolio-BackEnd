@@ -4,6 +4,7 @@ import com.portfolio.model.Tecnologia;
 import com.portfolio.service.TecnologiaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,16 +28,19 @@ public class TecnologiaController {
         return tecnoService.getTecnologia();
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/tecnologia")
     public void createTecno(@RequestBody Tecnologia tec) {
         tecnoService.createTecno(tec);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/tecnologia/{id}")
     public void editarTecno(@PathVariable Long id, @RequestBody Tecnologia tec) {
         tecnoService.editTecno(id, tec);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/tecnologia/{id}")
     public void eliminarTecno(@PathVariable Long id) {
         tecnoService.deleteTecno(id);
